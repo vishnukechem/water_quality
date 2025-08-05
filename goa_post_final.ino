@@ -256,49 +256,40 @@ void readSensors() {
   delay(500);
 
   // **Read from Slave ID 4**
-  node.begin(4, RS485Serial);
+  node.begin(9, RS485Serial);
 
 
-  result = node.readHoldingRegisters(0x2602, 2);
-  if (result == node.ku8MBSuccess) {
-    cod = convertABCD(node.getResponseBuffer(0), node.getResponseBuffer(1));
-    Serial.printf("💧 COD (Slave 4): %.2f mg/L\n", cod);
-  } else {
-    Serial.printf("❌ Error reading COD from Slave 4: 0x%02X\n", result);
-  }
+result = node.readHoldingRegisters(0x0000, 2);
+if (result == node.ku8MBSuccess) {
+  cod = convertScaledValue(node.getResponseBuffer(0), node.getResponseBuffer(1));
+  Serial.printf("💧 COD (Slave 4): %.2f mg/L\n", cod);
+} else {
+  Serial.printf("❌ Error reading COD from Slave 4: 0x%02X\n", result);
+}
+
 
   delay(500);
 
-  result = node.readHoldingRegisters(0x2608, 2);
-  if (result == node.ku8MBSuccess) {
-    bod = convertABCD(node.getResponseBuffer(0), node.getResponseBuffer(1));
-    Serial.printf("🌱 BOD (Slave 4): %.2f mg/L\n", bod);
-  } else {
-    Serial.printf("❌ Error reading BOD from Slave 4: 0x%02X\n", result);
-  }
+result = node.readHoldingRegisters(0x0006, 2);
+if (result == node.ku8MBSuccess) {
+  bod = convertScaledValue(node.getResponseBuffer(0), node.getResponseBuffer(1));
+  Serial.printf("🌱 BOD (Slave 4): %.2f mg/L\n", bod);
+} else {
+  Serial.printf("❌ Error reading BOD from Slave 4: 0x%02X\n", result);
+}
+
 
   delay(500);
 
 
-  result = node.readHoldingRegisters(0x2C00, 4);
-  if (result == node.ku8MBSuccess) {
-    float k = convertABCD(node.getResponseBuffer(0), node.getResponseBuffer(1));
-    float b = convertABCD(node.getResponseBuffer(2), node.getResponseBuffer(3));
 
-    Serial.printf("🧪 K = %.6f\n", k);
-    Serial.printf("🧪 B = %.6f\n", b);
-  } else {
-    Serial.printf("❌ Error reading K/B: 0x%02X\n", result);
-  }
-  delay(500);
-
-  result = node.readHoldingRegisters(0x1200, 2);
-  if (result == node.ku8MBSuccess) {
-    tss = convertABCD(node.getResponseBuffer(0), node.getResponseBuffer(1));
-    Serial.printf("🪨 TSS (Slave 4): %.2f mg/L\n", tss);
-  } else {
-    Serial.printf("❌ Error reading TSS from Slave 4: 0x%02X\n", result);
-  }
+result = node.readHoldingRegisters(0x0004, 2);
+if (result == node.ku8MBSuccess) {
+  tss = convertScaledValue(node.getResponseBuffer(0), node.getResponseBuffer(1));
+  Serial.printf("🪨 TSS (Slave 4): %.2f mg/L\n", tss);
+} else {
+  Serial.printf("❌ Error reading TSS from Slave 4: 0x%02X\n", result);
+}
 
   delay(500);
 
