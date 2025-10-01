@@ -14,7 +14,7 @@ const char* password = "@23";
 const unsigned long updateInterval = 1 * 60 * 1000;
 unsigned long lastCheckTime = 0;
 
-const char* serverURL = "";  //"https://api.livestockify.com/api/iot/data";
+const char* serverURL = ""; 
 #define MAX485_DE_RE 4                                                     // RS485 Direction Control Pin
 #define TX_PIN 17                                                          // ESP32 TX2
 #define RX_PIN 16                                                          // Replace with actual API URL
